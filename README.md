@@ -2,7 +2,7 @@
 
 En este repositorio se encuentra el desarrollo de la sección practica entrega numero 4 del curso Sistemas operativos 750001C - 02
 
-El archivo inFile contiene la siguiente información sobre el problema:
+El archivo inFile.txt contiene la siguiente información sobre el problema:
 
 2 # Este numero simboliza cual de los siguientes metodos se quiere utilizar: 1=FirstFit, 2=BestFit, 3=WorstFit
 
