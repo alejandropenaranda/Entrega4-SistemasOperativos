@@ -1,5 +1,7 @@
 # Entrega4-SistemasOperativos
 
+Hecho por: Alejandro Peñaranda Agudelo - 201941008
+
 En este repositorio se encuentra el desarrollo de la sección practica entrega numero 4 del curso Sistemas operativos 750001C - 02
 
 El archivo inFile.txt contiene la siguiente información sobre el problema:
