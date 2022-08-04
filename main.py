@@ -11,6 +11,7 @@ class Particion():
   def nuevoTamaño(self,capacidad):
     self.capacidad = capacidad
 
+
 class Proceso():
   def __init__(self,n,tamaño):
     self.n = n
@@ -20,7 +21,7 @@ class Proceso():
     res = "P" + str(self.n)
     return res
 
-    
+  
 def input():
     readData = []
     with open(nombreLectura + ".txt", "r") as f:
@@ -39,65 +40,77 @@ def input():
           
     return metodo, particiones, procesos
 
+  
 #Esta función se encarga de realizar el llamado al metodo de asignacion de memoria seleccionado
 def saveProcs(metodo,particiones,procesos):
   if metodo == 1:
-    firstFit(particiones, procesos) #llamar a la funcion First Fit
+    firstFit(particiones, procesos)
   elif metodo == 2:
-      bestFit(particiones, procesos) #llamar a la funcion best Fit
+      bestFit(particiones, procesos)
   elif metodo == 3:
-      worstFit(particiones, procesos) #llamar a la funcion Worst Fit
+      worstFit(particiones, procesos)
   else:
     print('Error: Escoga un metodo de asignación de memoria valido')
 
-
+#Esta función implementa el metodo de asignacion de memoria FirstFit
 def firstFit(particiones,procesos):
   res = ""
   for i in range(len(procesos)):
+    aux = False
     for j in range(len(particiones)):
       if procesos[i].tamaño <= particiones[j].capacidad:
         res += procesos[i].nombre() + " -> " + str(procesos[i].tamaño) + " is put in " + str(particiones[j].capacidad) + ", " + str(particiones[j].n) + " partition." + "\n"
         particiones[j].nuevoTamaño(particiones[j].capacidad - procesos[i].tamaño)
-        break     
+        aux = True
+        break
+    if aux == False:
+      res += procesos[i].nombre() + " -> " + str(procesos[i].tamaño) + " Not allocated"
   print(res)
 
-  
+#Esta función implementa el metodo de asignacion de memoria BestFit
 def bestFit(particiones,procesos):
   res = ""
   for i in range(len(procesos)):
+    aux = False
     index = 0
     mindif = 100000000
     for j in range(len(particiones)):
       if procesos[i].tamaño <= particiones[j].capacidad:
+        aux = True
         if particiones[j].capacidad - procesos[i].tamaño < mindif:
           mindif = particiones[j].capacidad - procesos[i].tamaño
           index = j
     particiones[index].nuevoTamaño(particiones[index].capacidad - procesos[i].tamaño)
     res += procesos[i].nombre() + " -> " + str(procesos[i].tamaño) + " is put in " + str(particiones[index].capacidad + procesos[i].tamaño ) + ", " + str(particiones[index].n) + " partition." + "\n"
+    if aux == False:
+      res+= procesos[i].nombre() + " -> " + str(procesos[i].tamaño) + " Not allocated"
   print(res)
 
-  
+#Esta función implementa el metodo de asignacion de memoria WorstFit  
 def worstFit(particiones,procesos):
   res = ""
   for i in range(len(procesos)):
+    aux = False
     index = 0
     maxdif = 0
     for j in range(len(particiones)):
       if procesos[i].tamaño <= particiones[j].capacidad:
+        aux = True
         if particiones[j].capacidad - procesos[i].tamaño > maxdif:
           maxdif = particiones[j].capacidad - procesos[i].tamaño
           index = j
     if maxdif != 0:
       particiones[index].nuevoTamaño(particiones[index].capacidad - procesos[i].tamaño)
       res += procesos[i].nombre() + " -> " + str(procesos[i].tamaño) + " is put in " + str(particiones[index].capacidad + procesos[i].tamaño ) + ", " + str(particiones[index].n) + " partition." + "\n"
+    if aux == False:
+      res+= procesos[i].nombre() + " -> " + str(procesos[i].tamaño) + " Not allocated"
   print(res)
 
-  
+#Metodo principal da inicio a la ejecucion del problema
 def main():
-  metodo,particiones,procesos = input()
+  metodo,particiones, procesos = input()
   saveProcs(metodo,particiones,procesos)
   
   
 if __name__ == "__main__":
     main()
-  
